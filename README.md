@@ -25,6 +25,10 @@ Uses basic machine learning to recommend personalized meal plans based on a user
 ## Dataset
 - `food.csv` includes nutritional data for various food items.
 - Each item includes nutrient values and suitability tags for specific disorders and meal times.
+  
 
---
+## Accuracy 
+- The system utilizes the Nearest Neighbors algorithm to identify food items with nutritional profiles most similar to the user's needs. (Performs better compared to K-Means and Random Forest algorithms)
+- Achieved effective recommendations with good cosine similarity scores (>0.95) between user nutrient vectors and matched meals.
+- The system maintains dietary relevance while avoiding overfitting, as no user-specific training is involved.
 
