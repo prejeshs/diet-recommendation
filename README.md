@@ -3,7 +3,6 @@
 ## About
 Uses basic machine learning to recommend personalized meal plans based on a user's demographic and lifestyle profile. Takes into account nutrient requirements calculated from age, weight, height, gender, and activity level, and further adjusts recommendations based on specific health disorders. Accessible via a Flask-based web interface. Includes exploratory data analysis (EDA) of the food dataset and comparison of ML algorithms for generating meal recommendations.
 
---
 
 ## Key Features
 - **User Profiling**: Accepts inputs such as age, gender, weight, height, activity level, and health disorders.
@@ -14,7 +13,6 @@ Uses basic machine learning to recommend personalized meal plans based on a user
 - **Nutrient Visualization**: Generates a pie chart to show the macronutrient distribution of the selected meals.
 - **EDA and ML Evaluation**: Analyzes the food dataset and compares performance of basic ML models.
 
---
 
 ## Tech Stack
 - **Backend**: Python, Flask
@@ -23,7 +21,6 @@ Uses basic machine learning to recommend personalized meal plans based on a user
 - **Visualization**: matplotlib
 - **Frontend**: HTML (Jinja2 templating)
 
---
 
 ## Dataset
 - `food.csv` includes nutritional data for various food items.
