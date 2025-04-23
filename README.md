@@ -28,7 +28,18 @@ Uses basic machine learning to recommend personalized meal plans based on a user
   
 
 ## Accuracy 
-- The system utilizes the Nearest Neighbors algorithm to identify food items with nutritional profiles most similar to the user's needs. (Performs better compared to K-Means and Random Forest algorithms)
+- The system utilizes the Nearest Neighbors algorithm to identify food items with nutritional profiles most similar to the user's needs.
+- Performs better compared to K-Means and Random Forest algorithms in terms of nutrient alignment and recommendation relevance.
 - Achieved effective recommendations with good cosine similarity scores (>0.95) between user nutrient vectors and matched meals.
 - The system maintains dietary relevance while avoiding overfitting, as no user-specific training is involved.
+
+## Screenshots of Flask App
+
+### Home Page
+![Home Page](screenshots/frontend1.jpg)
+
+### Recommendation Results and Pie Chart Visualization
+![Recommendation Results](screenshots/frontend2.jpg)
+
+
 
