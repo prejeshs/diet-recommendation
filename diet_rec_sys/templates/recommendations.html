@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Recommendations</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 40px;
+        }
+        h1 {
+            color: #2e7d32;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .meal {
+            background-color: #f1f8e9;
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+        .meal h2 {
+            color: #388e3c;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .meal .meal-times {
+            font-style: italic;
+            color: #4caf50;
+            margin-bottom: 15px;
+        }
+        .nutrients {
+            font-size: 16px;
+            margin-top: 15px;
+            line-height: 1.8;
+        }
+        .nutrients h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #388e3c;
+        }
+        .nutrients span {
+            display: block;
+            color: #555;
+        }
+        .nutrients span strong {
+            color: #2e7d32;
+        }
+        .no-recommendations {
+            color: #e57373;
+            font-size: 18px;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2e7d32;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .back-button:hover {
+            background-color: #388e3c;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Personalized Meal Recommendations</h1>
+    {% if meals %}
+        {% for meal in meals %}
+            <div class="meal">
+                <h2>{{ meal.food_item }}</h2>
+                <p class="meal-times">
+                    Recommended for: 
+                    {% for time in meal.meal_times %}
+                        {{ time }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <div class="nutrients">
+                    <h3>Nutritional Information:</h3>
+                    <span><strong>Calories:</strong> {{ meal.nutrients['Calories'] }} kcal</span>
+                    <span><strong>Carbohydrates:</strong> {{ meal.nutrients['Carbohydrates'] }} g</span>
+                    <span><strong>Proteins:</strong> {{ meal.nutrients['Proteins'] }} g</span>
+                    <span><strong>Fats:</strong> {{ meal.nutrients['Fats'] }} g</span>
+                    <span><strong>Fibre:</strong> {{ meal.nutrients['Fibre'] }} g</span>
+                    <span><strong>Sodium:</strong> {{ meal.nutrients['Sodium'] }} mg</span>
+                    <span><strong>Potassium:</strong> {{ meal.nutrients['Potassium'] }} mg</span>
+                    <span><strong>Calcium:</strong> {{ meal.nutrients['Calcium'] }} mg</span>
+                    <span><strong>Iron:</strong> {{ meal.nutrients['Iron'] }} mg</span>
+                    <span><strong>Vitamin D:</strong> {{ meal.nutrients['VitaminD'] }} IU</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chart-{{ loop.index }}"></canvas>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-recommendations">No meal recommendations found. Please adjust your inputs and try again.</p>
+    {% endif %}
+    <a href="/" class="back-button">Go Back</a>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        {% for meal in meals %}
+            var ctx = document.getElementById("chart-{{ loop.index }}").getContext("2d");
+            new Chart(ctx, {
+                type: "pie",
+                data: {
+                    labels: ["Carbohydrates", "Proteins", "Fats", "Fibre"],
+                    datasets: [{
+                        data: [
+                            {{ meal.nutrients['Carbohydrates'] }},
+                            {{ meal.nutrients['Proteins'] }},
+                            {{ meal.nutrients['Fats'] }},
+                            {{ meal.nutrients['Fibre'] }}
+                        ],
+                        backgroundColor: ["#ffcc80", "#80cbc4", "#ff8a65", "#c5e1a5"]
+                    }]
+                }
+            });
+        {% endfor %}
+    });
+</script>
+
+</body>
+</html>
